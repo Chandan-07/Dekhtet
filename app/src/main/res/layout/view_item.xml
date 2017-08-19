@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:padding="10dp"
+    android:background="@android:color/background_light">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_light"
+        android:layout_marginBottom="3dp">
+
+    </RelativeLayout>
+
+    <TextView
+        android:text="bikename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+
+
+        android:layout_marginBottom="5dp"
+
+        android:id="@+id/bikename"
+        android:layout_weight="1"
+        android:layout_below="@+id/title" />
+
+    <TextView
+        android:text="user"
+        android:layout_width="wrap_content"
+
+        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bikename"
+        android:layout_alignStart="@+id/bikename"
+        android:id="@+id/user"
+
+        android:layout_weight="1"
+        android:layout_alignParentTop="true"
+        android:textStyle="normal|bold"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cost"
+        android:text="phone"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_weight="1"
+        android:id="@+id/phone"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:text="cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/user"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/cost"
+        android:layout_weight="1"
+        android:textColor="@android:color/holo_green_dark" />
+
+    <TextView
+        android:text="startdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+
+android:layout_below="@+id/bikename"
+        android:layout_marginBottom="5dp"
+
+        android:id="@+id/startdate"
+        android:layout_weight="1"
+       />
+
+    <TextView
+        android:text="enddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/startdate"
+        android:id="@+id/enddate" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/user"
+        android:layout_toRightOf="@+id/startdate"
+        android:layout_toEndOf="@+id/startdate"
+        android:id="@+id/title" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/id"
+        android:layout_below="@id/enddate"
+        />
+
+
+
+
+</RelativeLayout>

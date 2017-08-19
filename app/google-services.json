@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "959915827176",
+    "firebase_url": "https://dekhte-7d457.firebaseio.com",
+    "project_id": "dekhte-7d457",
+    "storage_bucket": "dekhte-7d457.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959915827176:android:c9c84d8add747c52",
+        "android_client_info": {
+          "package_name": "com.wordpress.keepup395.dekhte"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959915827176-af482okqb4f3mbc7vl965r7sqhhdjjhf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wordpress.keepup395.dekhte",
+            "certificate_hash": "8a633ea4bedaae1cb8d06167d7828863fd540098"
+          }
+        },
+        {
+          "client_id": "959915827176-knc77a4gcvshlttfsbf44baeem0k3hn5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbZLKwjkp0kNYFrl1ARNvEzCYyYHDiaKA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959915827176-knc77a4gcvshlttfsbf44baeem0k3hn5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
