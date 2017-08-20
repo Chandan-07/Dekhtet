@@ -12,10 +12,7 @@ android {
             multiDexEnabled = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    dexOptions {
-        javaMaxHeapSize "4g"
 
-    }
     buildTypes {
         release {
             minifyEnabled true
@@ -30,7 +27,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.firebaseui:firebase-ui:0.6.2'
+    compile 'com.firebaseui:firebase-ui:2.0.0'
     compile 'com.google.firebase:firebase-database:11.0.2'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'

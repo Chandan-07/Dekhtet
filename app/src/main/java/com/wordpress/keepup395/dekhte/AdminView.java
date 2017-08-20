@@ -16,30 +16,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.net.URI;
 import java.text.DateFormat;
 import java.util.Date;
-
-import static com.wordpress.keepup395.dekhte.R.id.id;
 
 public class AdminView extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     String user1, email1,otp;
     String id;
-
-    private String messagetime = DateFormat.getDateTimeInstance().format(new Date());
     TextView user, bikename, phone, cost, startdate, enddate, chatId, call, email;
     Button button;
+    private String messagetime = DateFormat.getDateTimeInstance().format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +83,29 @@ public class AdminView extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DeleteUser().execute();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(AdminView.this);
+                builder1.setMessage("Are you sure, you want to cancel the ride of  " + user1 + "?");
+                builder1.setCancelable(true);
+
+                builder1.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                new DeleteUser().execute();
+                            }
+                        });
+
+                builder1.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+
 
             }
         });
