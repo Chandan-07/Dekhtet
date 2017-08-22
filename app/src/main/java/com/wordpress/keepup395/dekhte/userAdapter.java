@@ -3,6 +3,7 @@ package com.wordpress.keepup395.dekhte;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class userAdapter extends RecyclerView.Adapter<userAdapter.UserViewHolder> {
 
-    private List<userModule> list;
+    public List<userModule> list;
     Context context;
 
 
@@ -34,7 +35,7 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.UserViewHolder
     }
 
     @Override
-    public void onBindViewHolder(UserViewHolder holder, int position) {
+    public void onBindViewHolder(final UserViewHolder holder, int position) {
         userModule data= list.get(position);
         holder.bikename.setText(data.bikename);
         holder.startdate.setText(data.chatdata);
@@ -45,7 +46,12 @@ public class userAdapter extends RecyclerView.Adapter<userAdapter.UserViewHolder
         holder.cost.setText("Rs: "+data.cost+"/-");
         holder.enddate.setText(data.enddate);
 
-
+        holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                contextMenu.add(holder.getAdapterPosition(), 0, 0, "remove from list?");
+            }
+        });
 
 
     }

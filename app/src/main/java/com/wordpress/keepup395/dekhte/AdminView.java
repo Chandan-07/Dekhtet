@@ -1,7 +1,6 @@
 package com.wordpress.keepup395.dekhte;
 
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,11 +9,12 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -27,9 +27,9 @@ import java.util.Date;
 
 public class AdminView extends AppCompatActivity {
     ProgressDialog progressDialog;
-
+    DatabaseReference reference;
     String user1, email1,otp;
-    String id;
+    String key;
     TextView user, bikename, phone, cost, startdate, enddate, chatId, call, email;
     Button button;
     private String messagetime = DateFormat.getDateTimeInstance().format(new Date());
@@ -69,14 +69,11 @@ public class AdminView extends AppCompatActivity {
         phone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
                     callIntent.setData(Uri.parse("tel:" + phone.getText().toString()));
-                    callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(callIntent);
-                } catch (ActivityNotFoundException activityException) {
-                    Log.e("Calling a Phone Number", "Call failed", activityException);
-                }
+
             }
         });
 
@@ -92,6 +89,12 @@ public class AdminView extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 new DeleteUser().execute();
+                                //key=reference.chgetKey();
+                                //MainActivity mainActivity=new MainActivity();
+
+                                //Intent intent=new Intent(AdminView.this,MainActivity.class);
+                                // startActivity(intent);
+
                             }
                         });
 

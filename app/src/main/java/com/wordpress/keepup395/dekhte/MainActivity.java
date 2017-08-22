@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -23,15 +23,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String[] paths = {"By bikes", "By users",};
+    //private Spinner spinner;
+    public List<userModule> result;
+    public userAdapter adapter1;
+    //private static final String[] paths = {"By bikes", "By users",};
     ListView listView;
     DatabaseReference reference;
     MediaPlayer mediaPlayer;
     RecyclerView recyclerView;
-    private Spinner spinner;
-    private List<userModule> result;
-    private userAdapter adapter1;
-
 
     //ArrayList<String> list=new ArrayList<>();
     //ArrayAdapter<String> adapter;
@@ -58,9 +57,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase secondaryDatabase = FirebaseDatabase.getInstance(app);
 
 
-        //    listView=(ListView)findViewById(R.id.get_view);
-        //  adapter=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,list);
-        //listView.setAdapter(adapter);
         reference = secondaryDatabase.getReference("data");
         result = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.get_view);
@@ -72,7 +68,23 @@ public class MainActivity extends AppCompatActivity {
         adapter1 = new userAdapter(result, this);
         recyclerView.setAdapter(adapter1);
 
+        updatelist();
+    }
 
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case 0:
+
+                removeUser(item.getGroupId());
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
+    public void updatelist() {
         reference.addChildEventListener(new
 
                                                 ChildEventListener() {
@@ -131,6 +143,15 @@ public class MainActivity extends AppCompatActivity {
     }
     return  index;
 }
+
+
+    private void removeUser(int position) {
+        reference.child(result.get(position).chatId).removeValue();
+        this.result.remove(position);
+
+        adapter1.notifyDataSetChanged();
+    }
+
 
 
 

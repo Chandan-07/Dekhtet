@@ -45,7 +45,7 @@ public class Signin extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Intent i = new Intent(Signin.this, MainActivity.class);
+                                Intent i = new Intent(Signin.this, ControlAdmin.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                                 finish();
@@ -60,7 +60,6 @@ public class Signin extends AppCompatActivity {
                 }
             }
         });
-
 
 
 
