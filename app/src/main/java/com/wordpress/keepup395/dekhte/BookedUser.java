@@ -3,7 +3,6 @@ package com.wordpress.keepup395.dekhte;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,6 +20,7 @@ import java.net.URI;
 
 public class BookedUser extends AppCompatActivity {
     public ListView bookedusers;
+
     public String[] name;
     public String[] phone;
     public String[] email;
@@ -37,29 +37,33 @@ public class BookedUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booked_user);
         bookedusers = (ListView) findViewById(R.id.bookeduser);
-        loading = new ProgressDialog(BookedUser.this);
+
+        execuute();
+
+    }
+
+    public void execuute() {
         String link = "http://www.twondfour.com/fetch/totalbookeduser.php?";
-        new GetBookedUserDetails().execute(link);
+        new GetBookedUserDetails().execute();
     }
 
     class GetBookedUserDetails extends AsyncTask<String, Void, Boolean> {
         @Override
         protected void onPreExecute() {
-            loading.setMessage("loading...");
+
             // Toast.makeText(BookedUser.this,"hefddrgr jh",Toast.LENGTH_LONG).show();
             super.onPreExecute();
+            loading = ProgressDialog.show(BookedUser.this, "Loading...", "Please wait...", true, true);
         }
 
         @Override
         protected Boolean doInBackground(String... params) {
             //Toast.makeText(BookedUser.this,"hey",Toast.LENGTH_LONG).show();
-            if (Looper.myLooper() == null) {
-                Looper.prepare();
-            }
             try {
+                //Toast.makeText(BookedUser.this,"hefdjh",Toast.LENGTH_LONG).show();
                 HttpClient client = new DefaultHttpClient();
                 HttpGet request = new HttpGet();
-                request.setURI(new URI(params[0]));
+                request.setURI(URI.create("http://www.twondfour.com/fetch/totalbookeduser.php?"));
                 HttpResponse response = client.execute(request);
                 int status = response.getStatusLine().getStatusCode();
                 if (status == 200) {
@@ -96,6 +100,7 @@ public class BookedUser extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(BookedUser.this, "Error", Toast.LENGTH_LONG).show();
             }
+            Toast.makeText(BookedUser.this, "hefdjh", Toast.LENGTH_LONG).show();
             return false;
         }
 
