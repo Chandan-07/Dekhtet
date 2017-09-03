@@ -1,15 +1,21 @@
 package com.wordpress.keepup395.dekhte;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -19,6 +25,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference reference;
     MediaPlayer mediaPlayer;
     RecyclerView recyclerView;
-
+    String email1;
+    ProgressDialog progressDialog;
     //ArrayList<String> list=new ArrayList<>();
     //ArrayAdapter<String> adapter;
     @Override
@@ -64,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager lim = new LinearLayoutManager(this);
         lim.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(lim);
-
+        progressDialog = new ProgressDialog(MainActivity.this);
         adapter1 = new userAdapter(result, this);
         recyclerView.setAdapter(adapter1);
 
@@ -75,9 +88,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case 0:
 
+            case 0:
                 removeUser(item.getGroupId());
+                new DeleteUser().execute();
                 break;
         }
 
@@ -137,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     for(int i=0;i< result.size();i++)
     {
         if(result.get(i).chatId.equals(data.chatId)){
-            index=1;
+            index = i;
             break;
         }
     }
@@ -147,26 +161,73 @@ public class MainActivity extends AppCompatActivity {
 
     private void removeUser(int position) {
         reference.child(result.get(position).chatId).removeValue();
+
         this.result.remove(position);
+        email1 = result.get(position).email;
 
         adapter1.notifyDataSetChanged();
+
     }
-
-
-
 
     public void showNotification(){
         NotificationCompat.Builder builder=new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.drawable.ic_account_circle_black_24dp);
         builder.setContentTitle("Notification");
         builder.setContentText("User Booked the bike ");
+        builder.setAutoCancel(true);
         mediaPlayer.start();
-        NotificationManager nm= (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Context context = getApplicationContext();
+
+
+        Intent notificationIntent = new Intent(context, MainActivity.class);
+
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        PendingIntent intent = PendingIntent.getActivity(context, 0,
+                new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+
+        builder.setContentIntent(intent);
+
+        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.notify(0,builder.build());
 
 
+    }
 
+    class DeleteUser extends AsyncTask<String, Void, Boolean> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+        }
 
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            //loading.dismiss();
+            progressDialog.dismiss();
+
+        }
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            //Toast.makeText(AdminView.this,"hd",Toast.LENGTH_LONG).show();
+            if (Looper.myLooper() == null) {
+                Looper.prepare();
+            }
+            try {
+                String url = "http://www.twondfour.com/fetch/deleteUsersBook.php?id=" + email1;
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet();
+                request.setURI(new URI(url));
+                HttpResponse response = client.execute(request);
+                int status = response.getStatusLine().getStatusCode();
+            } catch (Exception e) {
+                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_LONG).show();
+            }
+            return null;
+        }
     }
 
 }

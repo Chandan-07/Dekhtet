@@ -2,5 +2,6 @@
 <resources>
     <color name="colorPrimary">#132167</color>
     <color name="colorPrimaryDark">#bdc3e1</color>
-    <color name="colorAccent">#202020</color>
+    <color name="colorAccent">#c17905</color>
+    <color name="notification">#FFF5DE57</color>
 </resources>

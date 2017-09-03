@@ -3,6 +3,7 @@ package com.wordpress.keepup395.dekhte;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,6 +22,8 @@ import java.net.URI;
 public class BookedUser extends AppCompatActivity {
     public ListView bookedusers;
 
+    public UserListAdapter adapter1;
+    public String[] id;
     public String[] name;
     public String[] phone;
     public String[] email;
@@ -28,6 +31,7 @@ public class BookedUser extends AppCompatActivity {
     public String[] enddate;
     public String[] cost;
     public String[] bikename;
+
     public ProgressDialog loading;
     String[] imageString;
     String[] decodestartdate;
@@ -41,6 +45,53 @@ public class BookedUser extends AppCompatActivity {
         execuute();
 
     }
+
+    // @Override
+    /*public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case 0:
+                   new Deletelist().execute(id);
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
+    class Deletelist extends AsyncTask<String, Void, Boolean> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loading.show();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            //loading.dismiss();
+            adapter1.notifyDataSetChanged();
+            loading.dismiss();
+
+        }
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            //Toast.makeText(AdminView.this,"hd",Toast.LENGTH_LONG).show();
+            if (Looper.myLooper() == null) {
+                Looper.prepare();
+            }
+            try {
+                String url = "http://www.twondfour.com/fetch/deleteuserlist.php?id=" +id;
+                HttpClient client = new DefaultHttpClient();
+                HttpGet request = new HttpGet();
+                request.setURI(new URI(url));
+                HttpResponse response = client.execute(request);
+                int status = response.getStatusLine().getStatusCode();
+            } catch (Exception e) {
+                Toast.makeText(BookedUser.this, "Error", Toast.LENGTH_LONG).show();
+            }
+            return null;
+        }
+    }*/
 
     public void execuute() {
         String link = "http://www.twondfour.com/fetch/totalbookeduser.php?";
@@ -59,6 +110,9 @@ public class BookedUser extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(String... params) {
             //Toast.makeText(BookedUser.this,"hey",Toast.LENGTH_LONG).show();
+            if (Looper.myLooper() == null) {
+                Looper.prepare();
+            }
             try {
                 //Toast.makeText(BookedUser.this,"hefdjh",Toast.LENGTH_LONG).show();
                 HttpClient client = new DefaultHttpClient();
@@ -71,6 +125,7 @@ public class BookedUser extends AppCompatActivity {
                     String data = EntityUtils.toString(entity);
                     JSONObject jsonObject = new JSONObject(data);
                     JSONArray jsonArray = jsonObject.getJSONArray("result");
+
                     name = new String[jsonArray.length()];
                     email = new String[jsonArray.length()];
                     phone = new String[jsonArray.length()];
@@ -84,10 +139,10 @@ public class BookedUser extends AppCompatActivity {
                         JSONObject object = jsonArray.getJSONObject(i);
                         //url = new URL(object.getString("image"));
                         //bitmaps[i]= BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                        name[i] = object.getString("user_name");
+                        name[i] = object.getString("buser_name");
                         email[i] = object.getString("email_id");
                         phone[i] = object.getString("phone_no");
-
+                        id[i] = object.getString("id");
                         bikename[i] = object.getString("bike_name");
                         cost[i] = object.getString("cost");
                         startdate[i] = object.getString("start_date_time");
@@ -108,7 +163,8 @@ public class BookedUser extends AppCompatActivity {
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
             // Toast.makeText(BookedUser.this,"hefdjh",Toast.LENGTH_LONG).show();
-            UserListAdapter yourRide = new UserListAdapter(BookedUser.this, name, email, phone, bikename, cost, startdate, enddate);
+            UserListAdapter yourRide = new UserListAdapter(BookedUser.this, id, name, email, phone, bikename, cost, startdate, enddate);
+
             bookedusers.setAdapter(yourRide);
             loading.dismiss();
         }

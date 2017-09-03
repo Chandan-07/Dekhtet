@@ -1,74 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/background_light"
 
-    android:padding="10dp"
-    android:background="@android:color/background_light">
+    android:orientation="vertical"
+    android:padding="10dp">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/background_light"
-        android:layout_marginBottom="3dp">
-
-    </RelativeLayout>
 
     <TextView
-        android:text="bikename"
+        android:id="@+id/bikename"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-
+        android:layout_below="@+id/user"
 
         android:layout_marginBottom="5dp"
 
-        android:id="@+id/bikename"
         android:layout_weight="1"
-        android:layout_below="@+id/title" />
+        android:text="bikename" />
 
     <TextView
-        android:text="user"
+        android:id="@+id/user"
         android:layout_width="wrap_content"
 
-        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/bikename"
+        android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/bikename"
-        android:id="@+id/user"
+        android:layout_marginBottom="10dp"
 
         android:layout_weight="1"
-        android:layout_alignParentTop="true"
-        android:textStyle="normal|bold"
-        android:textSize="18sp" />
+        android:text="user"
+        android:textSize="18sp"
+        android:textStyle="normal|bold" />
 
     <TextView
+        android:id="@+id/phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cost"
-        android:text="phone"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/cost"
         android:layout_weight="1"
-        android:id="@+id/phone"
+        android:text="phone"
         android:textColor="@color/colorPrimary" />
 
     <TextView
-        android:text="cost"
+        android:id="@+id/cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/user"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/cost"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/user"
         android:layout_weight="1"
+        android:text="cost"
         android:textColor="@android:color/holo_green_dark" />
 
     <TextView
-        android:text="startdate"
+        android:id="@+id/startdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -77,33 +69,38 @@
 android:layout_below="@+id/bikename"
         android:layout_marginBottom="5dp"
 
-        android:id="@+id/startdate"
         android:layout_weight="1"
+        android:text="startdate"
        />
 
     <TextView
-        android:text="enddate"
+        android:id="@+id/enddate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/startdate"
-        android:id="@+id/enddate" />
+        android:text="enddate" />
+
 
     <TextView
-        android:text=""
+        android:id="@+id/id1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/user"
-        android:layout_toRightOf="@+id/startdate"
-        android:layout_toEndOf="@+id/startdate"
-        android:id="@+id/title" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/id"
         android:layout_below="@id/enddate"
-        />
+        android:text="OTP: " />
+    <TextView
+        android:id="@+id/otp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/enddate"
+        android:layout_toEndOf="@id/id1" />
 
-
+    <ImageView
+        android:id="@+id/not"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/phone"
+        android:background="@drawable/idp_button_background_phone" />
 
 
 </RelativeLayout>
